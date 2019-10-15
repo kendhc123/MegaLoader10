@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="myTerminal.COMPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:myTerminal"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+	<Page.Resources>
+		<CollectionViewSource x:ConnectionId='2' x:Name="serialList"/>
+	</Page.Resources>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="50"/>
+		</Grid.RowDefinitions>
+		<Grid>
+			<StackPanel Orientation="Horizontal" Grid.Row="0">
+				<TextBlock VerticalAlignment="Center">연결할 포트</TextBlock>
+				<ComboBox x:ConnectionId='7' x:Name="COMcombobox" ItemsSource="{Binding Source={StaticResource serialList}}" Width="Auto" MinWidth="150" Margin="10,0,0,0">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding DeviceName}"/>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+				<Button x:ConnectionId='8' x:Name="ButtonConnectToDevice" Content="Connect" Margin="10,0,10,0"                                    />
+				<Button x:ConnectionId='9' x:Name="ButtonDisconnectFromDevice"  Content="Disconnect" Margin="0,0,10,0"                                         />
+			</StackPanel>
+		</Grid>
+		<Border Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Black" Width="1500">
+			<TextBox x:ConnectionId='6' x:Name="comText" Grid.Row="1" AutomationProperties.Name="multi-line TextBox" TextWrapping="Wrap" AcceptsReturn="True"  
+				 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="920"
+					 ScrollViewer.VerticalScrollBarVisibility="Auto"                                                                 Opacity="1" IsReadOnly="True" />
+		</Border>
+		<StackPanel x:ConnectionId='3' Grid.Row="2" x:Name="StatusPanel">
+		<Border x:ConnectionId='4' x:Name="StatusBorder" >
+			<ScrollViewer VerticalScrollMode="Auto"  VerticalScrollBarVisibility="Auto" MaxHeight="200" Grid.Row="2">
+				<!-- Use LiveSetting to enable screen readers to announce the status update. -->
+				<TextBlock x:ConnectionId='5' x:Name="StatusBlock" FontWeight="Bold" AutomationProperties.LiveSetting="Assertive"
+                                   MaxWidth="{Binding ElementName=Splitter, Path=ActualWidth}" Margin="10,10,10,20" TextWrapping="Wrap"  />
+			</ScrollViewer>
+		</Border>
+		</StackPanel>
+	</Grid>
+</Page>
+
